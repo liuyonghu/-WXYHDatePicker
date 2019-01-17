@@ -1,0 +1,5 @@
+<!--libs/YHDatePicker/YHDatePikcer.wxml-->
+
+<picker mode="multiSelector" range='{{dateRange}}' value="{{dateRangeIndex}}" bindcolumnchange="changeTimePicker" bindchange='confirmTimePicker'>
+        <view>{{dateTime}}</view>
+</picker>
