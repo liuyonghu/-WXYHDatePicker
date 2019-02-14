@@ -32,14 +32,14 @@ Component({
         ready: function() {
                 // init date picker
                 this.changeTimePicker();
-                // console.log("ready --- " + JSON.stringify(this.methods));
+                // // console.log("ready --- " + JSON.stringify(this.methods));
         },
         /**
          * 组件的方法列表
          */
         methods: {
                 changeTimePicker: function(e) {
-                        // console.log('changeTimePicker ==  ' + JSON.stringify(e));
+                        // // console.log('changeTimePicker ==  ' + JSON.stringify(e));
                         var today = new Date(),
                                 hour = today.getHours(),
                                 minute = Math.ceil(today.getMinutes() / 10);
@@ -57,7 +57,7 @@ Component({
                                         this.setData({
                                                 dateIndex: dateFlag
                                         });
-                                        // console.log('e -- dateFlag = ' + dateFlag);
+                                        // // console.log('e -- dateFlag = ' + dateFlag);
                                 }
                                 coulmn = e.detail.column;
                                 value = e.detail.value;
@@ -67,7 +67,7 @@ Component({
                                 });
 
                         }
-                        // console.log('dateFlag = ' + dateFlag + '  coulmn = ' + coulmn + "  value = " + this.data.dateRangeIndex);
+                        // // console.log('dateFlag = ' + dateFlag + '  coulmn = ' + coulmn + "  value = " + this.data.dateRangeIndex);
                         switch (coulmn) {
                                 case (0):
                                         {
@@ -95,7 +95,7 @@ Component({
                                                                         timepicker.initBothHoursOrMiuteAsUsual(true, options);
                                                                 }
                                                 }
-                                                // console.log("hoursArray = " + hoursArray)
+                                                // // console.log("hoursArray = " + hoursArray)
                                                 this.setData({
                                                         hoursArray: hoursArray,
                                                         minutesArray: minutesArray,
@@ -106,7 +106,7 @@ Component({
                                 case (1):
                                         {
                                                 minutesArray = [];
-                                                // console.log(213);
+                                                // // console.log(213);
                                                 switch (dateFlag) {
                                                         case (0):
                                                                 {
@@ -160,7 +160,7 @@ Component({
                                         break;
                         }
 
-                        // console.log('hoursArray = ' + hoursArray);
+                        // // console.log('hoursArray = ' + hoursArray);
                         // obj dateRange
                         var objDateArray = [],
                                 objHoursArray = [],
@@ -191,7 +191,7 @@ Component({
                         // var 
 
                         var objectDateRange = [objDateArray, objHoursArray, objMinutesArray];
-                        // console.log('objectDateRange = ' + JSON.stringify(objectDateRange));
+                        // // console.log('objectDateRange = ' + JSON.stringify(objectDateRange));
                         this.setData({
                                 dateRange: [dateArray, hoursArray, minutesArray],
                                 objectDateRange: objectDateRange
@@ -199,7 +199,7 @@ Component({
                 },
                 confirmTimePicker: function(e) {
                         // var today = new Date("Dec 30 2018 14:10:00");
-                        console.log("e.detail.value = " + JSON.stringify(e.detail.value));
+                        // console.log("e.detail.value = " + JSON.stringify(e.detail.value));
                         var today = new Date();
                         var objArr = this.data.objectDateRange;
                         var year = today.getFullYear();
@@ -214,13 +214,13 @@ Component({
                         var date = objArr[0][resultCoulmn1].value;
                         var hour = objArr[1][resultCoulmn2].value;
                         var minute = objArr[2][resultCoulmn3].value;
-                        console.log("date = %s hour= %s minute = %s ", date, hour, minute);
+                        // console.log("date = %s hour= %s minute = %s ", date, hour, minute);
                         // var tempDate = new Date(year, 6, 0);
                         var tempDate = new Date(year, month, 0);
                         var daysCount = tempDate.getDate();
                         // 判断选择天数是否超过当月总天数
 
-                        // console.log(' resultCoulmn1 = ' + resultCoulmn1 + ' resultCoulmn2 = ' + resultCoulmn2 + ' resultCoulmn3 = ' + resultCoulmn3);
+                        // // console.log(' resultCoulmn1 = ' + resultCoulmn1 + ' resultCoulmn2 = ' + resultCoulmn2 + ' resultCoulmn3 = ' + resultCoulmn3);
                         switch (resultCoulmn1) {
                                 case (0):
                                         {
@@ -274,14 +274,14 @@ Component({
                                 selectDate: selectDate,
                                 ceateOrderNow: isNow
                         });
-                        console.log("selectDate =" + selectDate);
+                        // console.log("selectDate =" + selectDate);
                         this.properties.ComfrimYHDatePickerFunc({
                                 selectDate: selectDate,
                                 ceateOrderNow: isNow
                         });
-                        // console.log('today ==  ' + day + "    " + " tempDate.getDate() =   " + tempDate.getDate());
+                        // // console.log('today ==  ' + day + "    " + " tempDate.getDate() =   " + tempDate.getDate());
 
-                        // console.log('\n\n\n' + '-----confirmTimePicker------ ' + "today=" + confirmDate + "\n   slectDate = " + selectDate + "\n   tody =      " + today + "\n    day = " + day);
+                        // // console.log('\n\n\n' + '-----confirmTimePicker------ ' + "today=" + confirmDate + "\n   slectDate = " + selectDate + "\n   tody =      " + today + "\n    day = " + day);
                 },
                 getNumber: function (num) {
                         num = num + '';
