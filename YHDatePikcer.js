@@ -199,18 +199,22 @@ Component({
                 },
                 confirmTimePicker: function(e) {
                         // var today = new Date("Dec 30 2018 14:10:00");
+                        console.log("e.detail.value = " + JSON.stringify(e.detail.value));
                         var today = new Date();
                         var objArr = this.data.objectDateRange;
                         var year = today.getFullYear();
-                        var month = today.getMonth() + 1;
+                        var month = today.getMonth();
                         var day = today.getDate();
+                        // 日
                         var resultCoulmn1 = e.detail.value[0];
+                        // 时
                         var resultCoulmn2 = e.detail.value[1];
+                        // 分
                         var resultCoulmn3 = e.detail.value[2];
                         var date = objArr[0][resultCoulmn1].value;
                         var hour = objArr[1][resultCoulmn2].value;
                         var minute = objArr[2][resultCoulmn3].value;
-
+                        console.log("date = %s hour= %s minute = %s ", date, hour, minute);
                         // var tempDate = new Date(year, 6, 0);
                         var tempDate = new Date(year, month, 0);
                         var daysCount = tempDate.getDate();
@@ -262,7 +266,7 @@ Component({
 
                         var isNow = date == "现在";
                         var selectDate = !isNow ? new Date(year, month, day, hour, minute) : today;
-
+                  
                         var confirmDate = !isNow ? date + " " + hour + ":" + this.getNumber(minute) : "时间:现在";
 
                         this.setData({
@@ -270,7 +274,7 @@ Component({
                                 selectDate: selectDate,
                                 ceateOrderNow: isNow
                         });
-
+                        console.log("selectDate =" + selectDate);
                         this.properties.ComfrimYHDatePickerFunc({
                                 selectDate: selectDate,
                                 ceateOrderNow: isNow
