@@ -1,6 +1,10 @@
-// libs/YHDatePicker/YHDatePikcer.js
 var YHTimePicker = require('/yhTimePicker.js');
-var timepicker = new YHTimePicker();
+var timepicker = new YHTimePicker(),
+        dateArray = ["现在", "今天", "明天", "后天"],
+        selectDate = {},
+        hoursArray = [],
+        minutesArray = [],
+        objectDateRange = [], coulmn = 0, dateIndex = 0, value = 0;
 Component({
         /**
          * 组件的属性列表
@@ -17,16 +21,8 @@ Component({
          */
         data: {
                 dateTime: '时间:现在',
-                selectDate: {},
-                coulmn: 0,
-                value: 0,
-                dateArray: ["现在", "今天", "明天", "后天"],
-                hoursArray: [],
-                minutesArray: [],
                 dateRange: [],
-                objectDateRange: [],
-                dateRangeIndex: [0, 0, 0],
-                dateIndex: 0
+                dateRangeIndex: [0, 0, 0]
         },
         ready: function() {
                 // init date picker
@@ -66,55 +62,33 @@ Component({
                         dateArr.push(dateStr);
 
                 }
-
-                this.setData({
-                        dateArray: dateArr
-                });
+                dateArray = dateArr;
 
                 this.changeTimePicker();
-                // // console.log("ready --- " + JSON.stringify(this.methods));
         },
         /**
          * 组件的方法列表
          */
         methods: {
                 changeTimePicker: function(e) {
-                        // // console.log('changeTimePicker ==  ' + JSON.stringify(e));
                         var today = new Date(),
                                 hour = today.getHours(),
                                 minute = Math.ceil(today.getMinutes() / 10);
-
-                        // dateRange  value- minutes flag
-                        var dateArray = this.data.dateArray,
-                                hoursArray = this.data.hoursArray,
-                                minutesArray = this.data.minutesArray,
-                                dateFlag = this.data.dateIndex,
-                                coulmn = this.data.coulmn,
-                                value = this.data.value;
                         if (e && e.type != "tap") {
                                 if (e.detail.column == 0) {
-                                        dateFlag = e.detail.value;
-                                        this.setData({
-                                                dateIndex: dateFlag
-                                        });
-                                        // // console.log('e -- dateFlag = ' + dateFlag);
+                                        dateIndex = e.detail.value;
                                 }
                                 coulmn = e.detail.column;
                                 value = e.detail.value;
-                                this.setData({
-                                        coulmn: coulmn,
-                                        value: value
-                                });
 
                         }
-                        // // console.log('dateFlag = ' + dateFlag + '  coulmn = ' + coulmn + "  value = " + this.data.dateRangeIndex);
                         switch (coulmn) {
                                 case (0):
                                         {
                                                 hoursArray = [];
                                                 minutesArray = [];
 
-                                                switch (dateFlag) {
+                                                switch (dateIndex) {
                                                         case (0):
                                                                 {
                                                                         hoursArray = ["现在"];
@@ -135,19 +109,13 @@ Component({
                                                                         timepicker.initBothHoursOrMiuteAsUsual(true, options);
                                                                 }
                                                 }
-                                                // // console.log("hoursArray = " + hoursArray)
-                                                this.setData({
-                                                        hoursArray: hoursArray,
-                                                        minutesArray: minutesArray,
-                                                        // dateFlag:value
-                                                });
+
                                         };
                                         break;
                                 case (1):
                                         {
                                                 minutesArray = [];
-                                                // // console.log(213);
-                                                switch (dateFlag) {
+                                                switch (dateIndex) {
                                                         case (0):
                                                                 {
                                                                         hoursArray = ["现在"];
@@ -165,7 +133,7 @@ Component({
                                                                                 default:
                                                                                         {
                                                                                                 var options = {
-                                                                                                        hoursArray: hoursArray,
+                                                                                                        // hoursArray: hoursArray,
                                                                                                         minutesArray: minutesArray
                                                                                                 }
                                                                                                 timepicker.initBothHoursOrMiuteAsUsual(false, options);
@@ -184,23 +152,16 @@ Component({
                                                                         timepicker.initBothHoursOrMiuteAsUsual(true, options);
                                                                 }
                                                 }
-                                                this.setData({
-                                                        minutesArray: minutesArray,
-                                                        // hourFlag :value
-                                                });
                                         };
                                         break;
                                 default:
                                         {
-                                                // this.setData({
-                                                //         minuteFlag : value
-                                                // });
+                                              
 
                                         }
                                         break;
                         }
 
-                        // // console.log('hoursArray = ' + hoursArray);
                         // obj dateRange
                         var objDateArray = [],
                                 objHoursArray = [],
@@ -230,18 +191,14 @@ Component({
                         };
                         // var 
 
-                        var objectDateRange = [objDateArray, objHoursArray, objMinutesArray];
-                        // // console.log('objectDateRange = ' + JSON.stringify(objectDateRange));
+                        objectDateRange = [objDateArray, objHoursArray, objMinutesArray];
+
                         this.setData({
                                 dateRange: [dateArray, hoursArray, minutesArray],
-                                objectDateRange: objectDateRange
                         });
                 },
                 confirmTimePicker: function(e) {
-                        // var today = new Date("Dec 30 2018 14:10:00");
-                        // console.log("e.detail.value = " + JSON.stringify(e.detail.value));
                         var today = new Date();
-                        var objArr = this.data.objectDateRange;
                         var year = today.getFullYear();
                         var month = today.getMonth();
                         var day = today.getDate();
@@ -251,11 +208,9 @@ Component({
                         var resultCoulmn2 = e.detail.value[1];
                         // 分
                         var resultCoulmn3 = e.detail.value[2];
-                        var date = objArr[0][resultCoulmn1].value;
-                        var hour = objArr[1][resultCoulmn2].value;
-                        var minute = objArr[2][resultCoulmn3].value;
-                        // console.log("date = %s hour= %s minute = %s ", date, hour, minute);
-                        // var tempDate = new Date(year, 6, 0);
+                        var date = objectDateRange[0][resultCoulmn1].value;
+                        var hour = objectDateRange[1][resultCoulmn2].value;
+                        var minute = objectDateRange[2][resultCoulmn3].value;
                         let tempMonth = month + 1 > 11 ? 0 : month + 1;
                         if (!tempMonth) {
                                 year += 1;
@@ -264,7 +219,6 @@ Component({
                         var daysCount = tempDate.getDate();
                         // 判断选择天数是否超过当月总天数
 
-                        // // console.log(' resultCoulmn1 = ' + resultCoulmn1 + ' resultCoulmn2 = ' + resultCoulmn2 + ' resultCoulmn3 = ' + resultCoulmn3);
                         switch (resultCoulmn1) {
                                 case (0):
                                         {
@@ -309,7 +263,7 @@ Component({
                                         break;
                                 default:
                                         {
-                                                var desitionDay = day + resultCoulmn1 -1;
+                                                var desitionDay = day + resultCoulmn1 - 1;
                                                 if (desitionDay > daysCount) {
                                                         month += 1;
                                                         if (month > 12) {
@@ -325,23 +279,18 @@ Component({
                         }
 
                         var isNow = date == "现在";
-                        var selectDate = !isNow ? new Date(year, month, day, hour, minute) : today;
+                        selectDate = !isNow ? new Date(year, month, day, hour, minute) : today;
 
                         var confirmDate = !isNow ? date + " " + hour + ":" + this.getNumber(minute) : "时间:现在";
 
                         this.setData({
                                 dateTime: confirmDate,
-                                selectDate: selectDate,
                                 ceateOrderNow: isNow
                         });
-                        // console.log("selectDate =" + selectDate);
                         this.properties.ComfrimYHDatePickerFunc({
                                 selectDate: selectDate,
                                 ceateOrderNow: isNow
                         });
-                        // // console.log('today ==  ' + day + "    " + " tempDate.getDate() =   " + tempDate.getDate());
-
-                        // // console.log('\n\n\n' + '-----confirmTimePicker------ ' + "today=" + confirmDate + "\n   slectDate = " + selectDate + "\n   tody =      " + today + "\n    day = " + day);
                 },
                 getNumber: function(num) {
                         num = num + '';
