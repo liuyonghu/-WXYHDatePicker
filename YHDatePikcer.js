@@ -206,7 +206,7 @@ Component({
             var month = today.getMonth();
             var day = today.getDate();
             var todayFlag = new Date(year, month, day);
-            console.log("todayFlag = " + todayFlag);
+            // console.log("todayFlag = " + todayFlag);
 
             // 日
             var resultCoulmn1 = e.detail.value[0];
@@ -224,7 +224,7 @@ Component({
             var tempDate = new Date(year, tempMonth, 0);
             var daysCount = tempDate.getDate();
             console.log(resultCoulmn1);
-            var operateTodayStamp = todayFlag.getTime() + (resultCoulmn1 - 1) * 24 * 60 * 60 * 1000 + hour * 60 * 60 * 1000 + minute * 60 * 1000;
+            var operateTodayStamp = todayFlag.getTime() + (resultCoulmn1 -1) * 24 * 60 * 60 * 1000 + hour * 60 * 60 * 1000 + minute * 60 * 1000;
             var isNow = date == "现在";
             // selectDate = !isNow ? new Date(year, month, day, hour, minute) : today;
             selectDate = !isNow ? new Date(operateTodayStamp) : today;
