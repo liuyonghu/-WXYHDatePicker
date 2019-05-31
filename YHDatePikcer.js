@@ -34,7 +34,7 @@ Component({
         const todayTimestamp = today.getTime();
 
         var dateArr = ["现在"];
-        const weekArr = ["星期一  ", "星期二  ", "星期三  ", "星期四  ", "星期五  ", "星期六  ", "星期日  "];
+        const weekArr = ["星期日  ", "星期一  ", "星期二  ", "星期三  ", "星期四  ", "星期五  ", "星期六  "];
         for (var i = 0; i < 7; i++) {
             let date = new Date(todayTimestamp + (i) * 24 * 60 * 60 * 1000);
             var dateStr;
